@@ -1,0 +1,35 @@
+{% extends 'diary/base.html' %}
+{% load my_tags %}
+{% block content %}
+<div class="col-12">
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading">Пользователи</h1>
+
+        </div>
+    </section>
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        {% for object in object_list %}
+        <div class="col">
+            <div class="card shadow-sm">
+                <div class="col">
+                    <img class="card-img-top" src="{{ object.avatar | mediapath }}" width="200" height="400"
+                         alt="{{object}}">
+
+                    <div class="card-body bg-warning">
+
+                        <h5 class="card-title">{{ object.email }}</h5>
+
+                        <a href="{% url 'users:user_detail' object.pk %}" class="btn btn-primary">Подробнее</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+</div>
+</div>
+
+{% endblock %}
