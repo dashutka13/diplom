@@ -1,11 +1,15 @@
 from django.urls import path
 
 from diary.apps import DiaryConfig
-from diary.views import IndexView, NoteCreateView
+from diary.views import IndexView, NoteCreateView, NoteListView, NoteUpdateView, NoteDetailView, NoteDeleteView
 
 app_name = DiaryConfig.name
 
 urlpatterns = [
     path('', IndexView.as_view(), name='home_page'),
-    path("note/create/", NoteCreateView.as_view(), name="note-create"),
+    path("note/", NoteListView.as_view(), name="note_list"),
+    path("note/create/", NoteCreateView.as_view(), name="note_create"),
+    path("note/<int:pk>/detail/", NoteDetailView.as_view(), name="note_detail"),
+    path("note/<int:pk>/update/", NoteUpdateView.as_view(), name="note_update"),
+    path("note/<int:pk>/delete/", NoteDeleteView.as_view(), name="note_delete"),
 ]

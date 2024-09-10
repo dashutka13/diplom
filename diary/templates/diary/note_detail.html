@@ -1,0 +1,49 @@
+{% extends 'diary/base.html' %}
+{% load my_tags %}
+
+{% block content %}
+<div class="container">
+    <div class="col-12">
+        <div class="row justify-content-md-center">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h3 class="card-title">
+                            {{ object.topic }}
+                        </h3>
+                    </div>
+                    <div class="row g-0">
+                        <div class="col-md-8">
+
+                            <div class="card-body ">
+                                <table class="table table-striped">
+                                    <tbody>
+                                    <tr>
+                                        <td>{{ object.body }}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            {% if object.image %}
+                            <img class="img-fluid rounded-start" src="{{ object.image | mediapath }}" width="300"
+                                 height="600"
+                                 alt="{{object}}">
+                            {% endif %}
+                        </div>
+                        <div class="card-footer">
+                            <div class="text-center">
+                                <a href="{% url 'diary:note_update' object.pk %}"
+                                   class="btn btn-primary">Редактировать</a>
+                                <a href="{% url 'diary:note_delete' object.pk %}"
+                                   class="btn btn-danger">Удалить</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

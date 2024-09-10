@@ -7,7 +7,7 @@ class StyleFormMixin:
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
-            if field_name != 'is_published':
+            if field_name not in ('is_published', 'usable_password'):
                 field.widget.attrs['class'] = 'form-control'
 
 
@@ -15,13 +15,13 @@ class UserRegisterForm(StyleFormMixin, UserCreationForm):
 
     class Meta:
         model = User
-        fields = ('email', 'password1', 'password2',)
+        fields = ('first_name', 'gender', 'email', 'password1', 'password2',)
 
 
 class UserForm(StyleFormMixin, UserChangeForm):
     class Meta:
         model = User
-        fields = ('email', 'password', 'avatar', )
+        fields = ('first_name', 'gender', 'email', 'password', 'avatar', )
 
     # def __init__(self, *args, **kwargs):
     #     super().__init__(*args, **kwargs)
