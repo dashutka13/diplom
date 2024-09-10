@@ -14,22 +14,35 @@
         <div class="col">
             <div class="card shadow-sm">
                 <div class="col">
+                    {% if object.avatar %}
                     <img class="card-img-top" src="{{ object.avatar | mediapath }}" width="200" height="400"
                          alt="{{object}}">
+                    {% else %}
+                    {% if object.gender %}
+                    {% if object.gender == 'female' %}
+                    <img class="card-img-top" src="/static/images/avatar_female.png" width="200" height="400"
+                         alt="{{object}}">
+                    {% else %}
+                    <img class="card-img-top" src="/static/images/avatar_male.png" width="200" height="400"
+                         alt="{{object}}">
+                    {% endif %}
+                    {% else %}
+                    <img class="card-img-top" src="/static/images/no_photo.png" width="200" height="400"
+                         alt="{{object}}">
+                    {% endif %}
+                    {% endif %}
 
                     <div class="card-body bg-warning">
 
-                        <h5 class="card-title">{{ object.email }}</h5>
+                        <h5 class="card-title">{{ object.first_name }}</h5>
 
-                        <a href="{% url 'users:user_detail' object.pk %}" class="btn btn-primary">Подробнее</a>
+                        <a href="{% url 'users:user_detail' object.pk %}" class="btn btn-outline-dark">Подробнее</a>
                     </div>
                 </div>
             </div>
         </div>
         {% endfor %}
     </div>
-</div>
-</div>
 </div>
 
 {% endblock %}
