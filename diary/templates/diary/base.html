@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.118.2">
-    <title>Catalog</title>
+    <title>Личный дневник</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
 
@@ -111,6 +111,15 @@
 
 
 
+
+
+
+
+
+
+
+
+
     </style>
 </head>
 <body>
@@ -183,45 +192,85 @@
 </div>
 
 
-<header data-bs-theme="dark">
-    <div class="collapse text-bg-dark" id="navbarHeader">
+<header data-bs-theme="light">
+    <div class="collapse bg-danger bg-opacity-50" id="navbarHeader">
         <div class="container">
             <div class="row">
-                <div class="col-sm-8 col-md-7 py-4">
-                    <h4>About</h4>
-                    <p class="text-body-secondary">Add some information about the album below, the author, or any other
-                        background context. Make it a few sentences long so folks can pick up some informative tidbits.
-                        Then, link them off to some social networking sites or contact information.</p>
-                </div>
-                <div class="col-sm-4 offset-md-1 py-4">
-                    <h4>Меню</h4>
+                {% if request.user.is_authenticated %}
+                <div class="col-2 py-4">
+                    <h4 class="text-center text-white">Меню</h4>
                     <ul class="list-unstyled">
-                        <li><a href="{% url 'diary:home_page' %}" class="text-white">Главная</a></li>
+                        <li><a href="{% url 'diary:home_page' %}"
+                               class="btn btn-sm  btn-warning btn-outline-dark rounded-pill mb-1 text-white form-control">Главная</a>
+                        </li>
+
+                        <li><a href="{% url 'users:user_list' %}"
+                               class="btn btn-sm btn-warning btn-outline-dark rounded-pill text-white mb-1 form-control">Пользователи</a>
+                        </li>
+
+                        <li><a href="{% url 'diary:note_search' %}"
+                               class="btn btn-sm btn-warning btn-outline-dark rounded-pill text-white form-control">
+                            Поиск заметок
+                            <span style="display: inline-block; width: 5px;"></span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" style="fill:red"
+                                 class="bi bi-search-heart" viewBox="0 0 15 15">
+                                <path d="M6.5 4.482c1.664-1.673 5.825 1.254 0 5.018-5.825-3.764-1.664-6.69 0-5.018"/>
+                                <path d="M13 6.5a6.47 6.47 0 0 1-1.258 3.844q.06.044.115.098l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1-.1-.115h.002A6.5 6.5 0 1 1 13 6.5M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11"/>
+                            </svg>
+                        </a>
+                        </li>
+                    </ul>
+                </div>
+                {% endif %}
+                <div class="col-6 py-4 offset-md-1 text-center text-white">
+                    <h4 class="text-success">Зачем вести дневник?</h4>
+                    <p class="text-white">Запись своих мыслей благотворно влияет на здоровье как
+                        ментальное, так и физическое. Исследования показывают, что ведение дневника помогает снизить
+                        уровень стресса.</p>
+                </div>
+                <div class="col-2 offset-md-1 py-4">
+                    <h4 class="text-center text-white">Профиль</h4>
+                    <ul class="list-unstyled">
                         {% if user.is_authenticated %}
-                        <li><a href="{% url 'users:user_list' %}" class="text-white">Пользователи</a></li>
+                        <li><a href="{% url 'diary:note_list' %}"
+                               class="btn btn-sm btn-warning btn-outline-dark rounded-pill text-white mb-1 form-control">Мой
+                            дневник</a></li>
+                        <li><a href="{% url 'users:profile' request.user.pk %}"
+                               class="btn btn-sm btn-success btn-outline-dark rounded-pill text-white mb-1 form-control">Личный
+                            кабинет</a>
+                        </li>
                         <li>
                             <form method="post" action="{% url 'users:logout' %}">
                                 {% csrf_token %}
-                                <button class="btn btn-danger" type="submit">Выйти</button>
+                                <button class="btn btn-sm btn-danger btn-outline-dark rounded-pill text-white form-control"
+                                        type="submit">Выйти
+                                </button>
                             </form>
                         </li>
                         {% else %}
-                        <li><a href="{% url 'users:login' %}" class="text-white">Войти</a></li>
-                        <li><a href="{% url 'users:register' %}" class="text-white">Регистрация</a></li>
+                        <li><a href="{% url 'users:login' %}"
+                               class="btn btn-sm btn-success btn-outline-dark rounded-pill text-white mb-1 form-control">Войти</a>
+                        </li>
+
+                        <li><a href="{% url 'users:register' %}"
+                               class="btn btn-sm btn-primary btn-outline-dark rounded-pill text-white form-control">Регистрация</a>
+                        </li>
                         {% endif %}
                     </ul>
                 </div>
             </div>
         </div>
     </div>
-    <div class="navbar navbar-dark bg-dark shadow-sm">
+    <div class="navbar navbar-dark bg-warning shadow-md">
         <div class="container">
-            <a href="#" class="navbar-brand d-flex align-items-center">
-                <strong>Dear Diary...</strong>
+            <a href="{% url 'diary:note_create' %}" class="navbar-brand text-dark d-flex align-items-center">
+                <strong>Дорогой дневник...</strong>
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader"
+            <button class="navbar-toggler bg-info btn btn-outline-dark rounded-pill" type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarHeader"
                     aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+                <span class="btn btn-info text-dark rounded-pill">Меню</span>
             </button>
         </div>
     </div>
@@ -244,9 +293,7 @@
         <p class="float-end mb-1">
             <a href="#">Back to top</a>
         </p>
-        <p class="mb-1">Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
-        <p class="mb-0">New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a
-                href="/docs/5.3/getting-started/introduction/">getting started guide</a>.</p>
+        <p>&copy; 2024 - {% now 'Y' %}</p>
     </div>
 </footer>
 <script src="{% static 'js/bootstrap.bundle.min.js' %}"

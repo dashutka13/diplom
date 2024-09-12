@@ -14,12 +14,22 @@ class User(AbstractUser):
 
     username = None
 
-    email = models.EmailField(unique=True, verbose_name='Email', help_text='Укажите email')
+    email = models.EmailField(unique=True, verbose_name='Email')
 
     avatar = models.ImageField(upload_to='users/', verbose_name='аватар', help_text='Загрузите аватар', **NULLABLE)
 
     """Указание гендера необходимо для выбора подходящей заглушки аватара."""
     gender = models.CharField(choices=GENDERS, verbose_name='пол', help_text='Выберите пол', **NULLABLE)
 
+    verify_key = models.CharField(**NULLABLE)
+    is_verified = models.BooleanField(default=False, verbose_name='статус аккаунта')
+
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
+
+    def __str__(self):
+        return f'{self.first_name} {self.last_name}'
+
+    class Meta:
+        verbose_name = 'Пользователь'
+        verbose_name_plural = 'Пользователи'

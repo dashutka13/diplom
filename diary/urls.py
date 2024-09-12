@@ -1,5 +1,6 @@
 from django.urls import path
 
+from diary import views
 from diary.apps import DiaryConfig
 from diary.views import IndexView, NoteCreateView, NoteListView, NoteUpdateView, NoteDetailView, NoteDeleteView
 
@@ -12,4 +13,5 @@ urlpatterns = [
     path("note/<int:pk>/detail/", NoteDetailView.as_view(), name="note_detail"),
     path("note/<int:pk>/update/", NoteUpdateView.as_view(), name="note_update"),
     path("note/<int:pk>/delete/", NoteDeleteView.as_view(), name="note_delete"),
+    path("search/", views.note_search, name='note_search'),
 ]

@@ -16,13 +16,7 @@
                         <div class="col-md-8">
 
                             <div class="card-body ">
-                                <table class="table table-striped">
-                                    <tbody>
-                                    <tr>
-                                        <td>{{ object.body }}</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
+                                <h4>{{ object.body }}</h4>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -34,10 +28,18 @@
                         </div>
                         <div class="card-footer">
                             <div class="text-center">
+                                <a href="{% url 'diary:note_list' %}"
+                                   class="btn btn-success btn-outline-dark btn-md text-white rounded-pill"
+                                   style="width: 250px; height: 40px">Вернуться к списку заметок</a>
+                                {% if object.owner == request.user or request.user.is_superuser %}
                                 <a href="{% url 'diary:note_update' object.pk %}"
-                                   class="btn btn-primary">Редактировать</a>
+                                   class="btn btn-primary btn-outline-dark btn-md text-white rounded-pill"
+                                   style="width: 200x; height: 40px">Редактировать</a>
+                                <span style="display: inline-block; width: 200px;"></span>
                                 <a href="{% url 'diary:note_delete' object.pk %}"
-                                   class="btn btn-danger">Удалить</a>
+                                   class="btn btn-danger btn-outline-dark btn-md text-white rounded-pill"
+                                   style="width: 100px; height: 40px">Удалить</a>
+                                {% endif %}
                             </div>
                         </div>
                     </div>

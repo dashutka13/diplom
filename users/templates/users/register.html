@@ -6,13 +6,18 @@
         <div class="col-3"></div>
         <div class="col-6">
             <div class="card">
-                <div class="card-header"></div>
+                <div class="card-header text-center">
+                    <h4>Регистрация</h4>
+                </div>
                 <div class="card-body">
                     <form method="post" enctype="multipart/form-data">
 
                         {% csrf_token %}
                         {{ form.as_p }}
-                        <button type="submit" class="btn btn-success">Регистрация</button>
+                        <button type="submit"
+                                class="btn btn-success btn-outline-dark btn-lg text-white rounded-pill form-control">
+                            Зарегистрироваться
+                        </button>
 
                     </form>
                 </div>

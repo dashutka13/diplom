@@ -2,14 +2,20 @@
 {% block content %}
 <div class="container">
     <div class="row justify-content-md-center">
-        <div class="col-6">
+        <div class="col-10">
             <div class="card text-center">
                 <div class="card-body">
                     <form method="post">
                         {% csrf_token %}
-                        <p>Хотите удалить заметку '{{object.topic}}'?</p>
-                        <button type="submit" class="btn btn-danger">Подтвердить</button>
-                        <a href="{% url 'users:user_list' %}" class="btn btn-warning">Отмена</a>
+                        <br>
+                        <h4>Действительно хотите удалить заметку '{{object.topic}}'?</h4>
+                        <br>
+                        <br>
+                        <button type="submit" class="btn btn-danger btn-outline-dark btn-lg text-white rounded-pill">Подтвердить
+                        </button>
+                        <span style="display: inline-block; width: 200px;"></span>
+                        <a href="{% url 'diary:note_detail' object.pk %}"
+                           class="btn btn-success btn-outline-dark btn-lg text-white rounded-pill">Отмена</a>
                     </form>
                 </div>
             </div>

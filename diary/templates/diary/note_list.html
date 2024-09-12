@@ -1,39 +1,60 @@
 {% extends 'diary/base.html' %}
 {% load my_tags %}
 {% block content %}
-<div class="col-12">
-    <section class="jumbotron text-center">
-        <div class="container">
-            <h1 class="jumbotron-heading">Заметки</h1>
+<div class="container">
+    <div class="col-12">
+        {% if not request.user.note %}
+        <section class="jumbotron text-center">
+            <div class="container">
+                <h1 class="jumbotron-heading">В вашем дневнике еще нет записей! </h1>
+            </div>
+        </section>
+        {% endif %}
 
-        </div>
-    </section>
+        <br>
 
-    <div class="row">
-        {% for object in object_list %}
-        <div class="col">
-            <div class="card shadow-sm">
-                <div class="col">
-                  {% if object.image %}
-                    <img class="card-img-top" src="{{ object.image | mediapath }}" width="200" height="400"
-                         alt="{{object}}">
-                    {% else %}
-                    <img class="card-img-top" src="/static/images/note.png" width="200" height="400"
-                         alt="{{object}}">
-                  {% endif %}
+        <div class="col-12">
+            {% if user.is_authenticated %}
+            <div class="col-12 mb-5">
+                <a type="button" class="btn btn-info btn-outline-dark btn-md text-white rounded-pill form-control"
+                   href="{% url 'diary:note_create' %}">Добавить
+                    запись в дневник</a>
+            </div>
+            {% endif %}
 
-                    <div class="card-body bg-warning">
+            <div class="row">
+                {% for object in object_list %}
+                <div class="col-4">
+                    <div class="card shadow-sm">
+                        <div class="col">
+                            {% if object.image %}
+                            <img class="card-img-top" src="{{ object.image | mediapath }}" width="200" height="400"
+                                 alt="{{object}}">
+                            {% else %}
+                            <img class="card-img-top" src="/static/images/no_note_photo.jpg" width="200" height="400"
+                                 alt="{{object}}">
+                            {% endif %}
 
-                        <h5 class="card-title">{{ object.topic }}</h5>
-                        <h6 class="text">{{ object.owner.first_name }}</h6>
+                            <div class="card-body bg-danger-subtle">
 
-                        <a href="{% url 'diary:note_detail' object.pk %}" class="btn btn-outline-dark">Подробнее</a>
+                                <h4 class="text">Автор: {{ object.owner.first_name | title }}</h4>
+
+                                <h3 class="card-title">{{ object.topic | title | truncatechars:20 }}</h3>
+
+                                <a href="{% url 'diary:note_detail' object.pk %}"
+                                   class="btn btn-info btn-outline-dark btn-md text-white rounded-pill form-control">Читать...</a>
+
+                            </div>
+                            <div class="card-footer bg-warning bg-opacity-70">
+                                <a href="{% url 'users:user_detail' object.owner.pk %}" class="text-dark text-link">Профиль
+                                    автора</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                {% endfor %}
             </div>
         </div>
-        {% endfor %}
     </div>
 </div>
-
 {% endblock %}

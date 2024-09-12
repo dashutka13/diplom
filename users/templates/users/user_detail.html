@@ -55,12 +55,16 @@
                         </div>
                         <div class="card-footer">
                             <div class="text-center">
+                                {% if request.user == object or request.user.is_superuser %}
                                 <a href="{% url 'diary:note_list' %}"
-                                   class="btn btn-danger">К заметкам пользователя</a>
+                                   class="btn btn-success btn-outline-dark btn-md text-white rounded-pill" style="width: 150px; height: 40px">К
+                                    заметкам</a>
                                 <a href="{% url 'users:user_update' object.pk %}"
-                                   class="btn btn-primary">Редактировать</a>
+                                   class="btn btn-primary btn-outline-dark btn-md text-white rounded-pill" style="width: 150px; height: 40px">Редактировать</a>
+                                <span style="display: inline-block; width: 200px;"></span>
                                 <a href="{% url 'users:user_delete' object.pk %}"
-                                   class="btn btn-danger">Удалить</a>
+                                   class="btn btn-danger btn-outline-dark btn-md text-white rounded-pill" style="width: 100px; height: 40px">Удалить</a>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
