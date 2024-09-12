@@ -6,7 +6,11 @@
         {% if not request.user.note %}
         <section class="jumbotron text-center">
             <div class="container">
+                {% if user.is_staff %}
+                <h1 class="jumbotron-heading">Заметки всех пользователей </h1>
+                {% elif user.object %}
                 <h1 class="jumbotron-heading">В вашем дневнике еще нет записей! </h1>
+                {% endif %}
             </div>
         </section>
         {% endif %}
@@ -14,7 +18,7 @@
         <br>
 
         <div class="col-12">
-            {% if user.is_authenticated %}
+            {% if  not user.is_staff %}
             <div class="col-12 mb-5">
                 <a type="button" class="btn btn-info btn-outline-dark btn-md text-white rounded-pill form-control"
                    href="{% url 'diary:note_create' %}">Добавить
@@ -37,7 +41,7 @@
 
                             <div class="card-body bg-danger-subtle">
 
-                                <h4 class="text">Автор: {{ object.owner.first_name | title }}</h4>
+                                <h4 class="text">Автор: {{ object.owner | title }}</h4>
 
                                 <h3 class="card-title">{{ object.topic | title | truncatechars:20 }}</h3>
 

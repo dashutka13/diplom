@@ -17,7 +17,7 @@
                     </h3>
                     <br>
                     {% for note in results %}
-                    <h2><a href="{{ note.get_absolute_url }}">{{ note.topic }}</a></h2>
+                    <h2><a href="{% url 'diary:note_detail' note.pk %}">{{ note.topic }}</a></h2>
                     {{ note.body|truncatewords:5 }}
                     {% empty %}
                     <p>Нет результатов по вашему запросу.</p>

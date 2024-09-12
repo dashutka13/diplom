@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -24,13 +25,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-
     "rest_framework",
     "rest_framework_simplejwt",
-
     "users",
     "diary",
-
 ]
 
 MIDDLEWARE = [
@@ -73,8 +71,7 @@ DATABASES = {
         "USER": os.getenv("USER"),
         "PASSWORD": os.getenv("PASSWORD"),
         "PORT": 5432,
-        "HOST": "localhost"
-
+        "HOST": "localhost",
     }
 }
 
@@ -105,21 +102,19 @@ USE_TZ = True
 
 
 STATIC_URL = "static/"
-STATICFILES_DIRS = (
-    BASE_DIR / 'static',
-)
+STATICFILES_DIRS = (BASE_DIR / "static",)
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
 
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-AUTH_USER_MODEL = 'users.User'
+AUTH_USER_MODEL = "users.User"
 
-LOGOUT_REDIRECT_URL = '/'
-LOGIN_REDIRECT_URL = '/'
-LOGIN_URL = '/users/'
+LOGOUT_REDIRECT_URL = "/users/login/"
+LOGIN_REDIRECT_URL = "/"
+LOGIN_URL = "/users/"
 
 EMAIL_HOST = os.getenv("EMAIL_HOST")
 EMAIL_PORT = os.getenv("EMAIL_PORT")

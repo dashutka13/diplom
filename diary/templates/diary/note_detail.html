@@ -16,8 +16,21 @@
                         <div class="col-md-8">
 
                             <div class="card-body ">
+                                <h3>{{ object.topic }}</h3>
+                                <br>
                                 <h4>{{ object.body }}</h4>
                             </div>
+                        </div>
+                        <div class="col-md-4">
+                            {% if object.image %}
+                            <img class="card-img-top" src="{{ object.image | mediapath }}" width="200"
+                                 height="400"
+                                 alt="{{object}}">
+                            {% else %}
+                            <img class="card-img-top" src="/static/images/no_note_photo.jpg" width="200"
+                                 height="400"
+                                 alt="{{object}}">
+                            {% endif %}
                         </div>
                         <div class="col-md-4">
                             {% if object.image %}
@@ -28,13 +41,29 @@
                         </div>
                         <div class="card-footer">
                             <div class="text-center">
-                                <a href="{% url 'diary:note_list' %}"
-                                   class="btn btn-success btn-outline-dark btn-md text-white rounded-pill"
-                                   style="width: 250px; height: 40px">Вернуться к списку заметок</a>
+                                <a href="{% url 'diary:home_page' %}" class="text-dark text-link">Главная</a>
+                                <span style="display: inline-block; width: 5px;"></span>
+                                <a href="{% url 'users:user_detail' object.owner.pk %}" class="text-dark text-link">
+                                    {% if user.is_staff %}
+                                    Профиль автора
+                                    {% elif object.owner == user %}
+                                    Мой профиль
+                                    {% endif %}
+                                </a>
+                                <span style="display: inline-block; width: 5px;"></span>
+                                <a href="{% url 'diary:user_note_list' object.owner.pk %}"
+                                   class="text-dark text-link">
+                                    {% if user.is_staff %}
+                                    Заметки автора
+                                    {% elif object.owner == user %}
+                                    Мой дневник
+                                    {% endif %}
+                                </a>
+                                <span style="display: inline-block; width: 200px;"></span>
                                 {% if object.owner == request.user or request.user.is_superuser %}
                                 <a href="{% url 'diary:note_update' object.pk %}"
                                    class="btn btn-primary btn-outline-dark btn-md text-white rounded-pill"
-                                   style="width: 200x; height: 40px">Редактировать</a>
+                                   style="width: 300x; height: 40px">Редактировать заметку</a>
                                 <span style="display: inline-block; width: 200px;"></span>
                                 <a href="{% url 'diary:note_delete' object.pk %}"
                                    class="btn btn-danger btn-outline-dark btn-md text-white rounded-pill"

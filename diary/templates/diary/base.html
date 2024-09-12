@@ -120,6 +120,7 @@
 
 
 
+
     </style>
 </head>
 <body>
@@ -233,8 +234,13 @@
                     <ul class="list-unstyled">
                         {% if user.is_authenticated %}
                         <li><a href="{% url 'diary:note_list' %}"
-                               class="btn btn-sm btn-warning btn-outline-dark rounded-pill text-white mb-1 form-control">Мой
-                            дневник</a></li>
+                               class="btn btn-sm btn-warning btn-outline-dark rounded-pill text-white mb-1 form-control">
+                            {% if not user.is_staff %}
+                            Мой дневник
+                            {% else %}
+                            Заметки
+                            {% endif %}
+                        </a></li>
                         <li><a href="{% url 'users:profile' request.user.pk %}"
                                class="btn btn-sm btn-success btn-outline-dark rounded-pill text-white mb-1 form-control">Личный
                             кабинет</a>
@@ -270,7 +276,7 @@
                     data-bs-toggle="collapse"
                     data-bs-target="#navbarHeader"
                     aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="btn btn-info text-dark rounded-pill">Меню</span>
+                <span class="btn btn-info text-dark fw-semibold fs-5rounded-pill">Меню</span>
             </button>
         </div>
     </div>
