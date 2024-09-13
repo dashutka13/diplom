@@ -25,8 +25,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "rest_framework",
-    "rest_framework_simplejwt",
+
     "users",
     "diary",
 ]
@@ -67,11 +66,11 @@ WSGI_APPLICATION = "config.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv("NAME"),
-        "USER": os.getenv("USER"),
+        "NAME": os.getenv("POSTGRES_DB"),
+        "USER": os.getenv("POSTGRES_USER"),
         "PASSWORD": os.getenv("PASSWORD"),
-        "PORT": 5432,
-        "HOST": "localhost",
+        "PORT": os.getenv("POSTGRES_PORT"),
+        "HOST": os.getenv("POSTGRES_HOST"),
     }
 }
 
