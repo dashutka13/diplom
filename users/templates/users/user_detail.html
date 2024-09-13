@@ -55,12 +55,21 @@
                         </div>
                         <div class="card-footer">
                             <div class="text-center">
-                                <a href="{% url 'diary:note_list' %}"
-                                   class="btn btn-danger">К заметкам пользователя</a>
+                                {% if request.user == object or request.user.is_superuser %}
+                                <a href="{% url 'diary:user_note_list' object.pk %}"
+                                   class="btn btn-success btn-outline-dark btn-md text-white rounded-pill" style="width: 300px; height: 40px">
+                                    {% if user.is_staff %}
+                                    Заметки {{ object }}
+                                    {% else %}
+                                    Мои заметки
+                                    {% endif %}
+                                </a>
                                 <a href="{% url 'users:user_update' object.pk %}"
-                                   class="btn btn-primary">Редактировать</a>
+                                   class="btn btn-primary btn-outline-dark btn-md text-white rounded-pill" style="width: 150px; height: 40px">Редактировать</a>
+                                <span style="display: inline-block; width: 200px;"></span>
                                 <a href="{% url 'users:user_delete' object.pk %}"
-                                   class="btn btn-danger">Удалить</a>
+                                   class="btn btn-danger btn-outline-dark btn-md text-white rounded-pill" style="width: 100px; height: 40px">Удалить</a>
+                                {% endif %}
                             </div>
                         </div>
                     </div>

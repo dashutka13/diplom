@@ -10,12 +10,15 @@
                     <h3>Вход в аккаунт</h3>
                 </div>
                 <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
                     <div class="card-body text-center">
-                        {% csrf_token %}
                         {{ form.as_p }}
                     </div>
                     <div class="card-footer text-center">
-                        <button type="submit" class="btn btn-success form-control">Войти</button>
+                        <button type="submit"
+                                class="btn btn-success btn-outline-dark btn-md text-white rounded-pill form-control">
+                            Войти
+                        </button>
                     </div>
                 </form>
             </div>

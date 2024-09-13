@@ -1,0 +1,14 @@
+{% extends 'diary/base.html' %}
+{% block content %}
+
+<div class="row">
+    <div class="col-12 text-center">
+        <h3>Подтвердите электронную почту перейдя по ссылке из письма.</h3>
+        <br>
+        <br>
+        <br>
+        <a href="{% url 'diary:home_page' %}" class="btn btn-primary btn-outline-dark btn-lg text-white rounded-pill form-control">На главную</a>
+    </div>
+</div>
+
+{% endblock %}

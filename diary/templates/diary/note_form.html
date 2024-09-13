@@ -1,4 +1,3 @@
-
 {% extends 'diary/base.html' %}
 
 {% block content %}
@@ -12,7 +11,14 @@
                         {% csrf_token %}
                         {{ form.as_p }}
 
-                        <button type="submit">Сохранить</button>
+                        <button class="btn btn-info btn-outline-dark btn-md text-white rounded-pill form-control"
+                                type="submit">
+                            {% if object %}
+                            Сохранить
+                            {% else %}
+                            Создать
+                            {% endif %}
+                        </button>
                     </form>
                 </div>
             </div>

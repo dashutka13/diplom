@@ -1,0 +1,62 @@
+{% extends "diary/base.html" %}
+{% block title %}Поиск{% endblock %}
+{% block content %}
+<div class="py-3 container">
+    <div class="row justify-content-md-center">
+        <div class="col-10">
+            <div class="card text-center">
+                <div class="card-body">
+                    {% if query %}
+                    <h1>Заметки содержащие "{{ query }}"</h1>
+                    <br>
+                    <br>
+                    <h3>
+                        {% with results.count as total_results %}
+                        Найдено {{ total_results }} результатов
+                        {% endwith %}
+                    </h3>
+                    <br>
+                    {% for note in results %}
+                    <h2><a href="{% url 'diary:note_detail' note.pk %}">{{ note.topic }}</a></h2>
+                    {{ note.body|truncatewords:5 }}
+                    {% empty %}
+                    <p>Нет результатов по вашему запросу.</p>
+                    {% endfor %}
+                    <br>
+                    <br>
+                    <p><a href="{% url 'diary:note_search' %}">Искать снова</a></p>
+                    {% else %}
+
+                    <h1 class="text-info">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" style="fill:red"
+                             class="bi bi-search-heart" viewBox="0 0 15 15">
+                            <path d="M6.5 4.482c1.664-1.673 5.825 1.254 0 5.018-5.825-3.764-1.664-6.69 0-5.018"/>
+                            <path d="M13 6.5a6.47 6.47 0 0 1-1.258 3.844q.06.044.115.098l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1-.1-.115h.002A6.5 6.5 0 1 1 13 6.5M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11"/>
+                        </svg>
+                        <span style="display: inline-block; width: 5px;"></span>
+                        Поиск по заметкам
+                    </h1>
+
+                    <form action="." method="get">
+                        <br>
+                        <br>
+                        <p>
+                            <input class="rounded-pill" type="text" style="width: 500px; height: 40px"
+                                   placeholder="  Введите запрос" name="query" required
+                                   id="id_query">
+                        </p>
+
+                        <input class="btn btn-info btn-outline-dark btn-md text-white rounded-pill"
+                               style="width: 500px; height: 40px" type="submit"
+                               value="Искать">
+                    </form>
+                    <br>
+                    <p><a href="{% url 'diary:home_page' %}">На главную</a></p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
